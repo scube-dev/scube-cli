@@ -1,3 +1,9 @@
+require 'optparse'
+require 'ostruct'
+
+require 'scube/cli/runner'
+require 'scube/cli/version'
+
 module Scube
   module CLI
     Error         = Class.new(StandardError)
