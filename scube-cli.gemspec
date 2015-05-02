@@ -14,4 +14,6 @@ Gem::Specification.new do |s|
   s.files       = `git ls-files lib`.split $/
   s.executable  = 'scube'
   s.extra_rdoc_files = %w[README.md]
+
+  s.add_dependency 'faraday', '~> 0.9'
 end
