@@ -1,6 +1,7 @@
 require 'optparse'
 require 'ostruct'
 
+require 'scube/cli/commands/import'
 require 'scube/cli/runner'
 require 'scube/cli/version'
 

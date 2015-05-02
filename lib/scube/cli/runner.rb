@@ -8,6 +8,10 @@ module Scube
       EX_USAGE    = 64
       EX_SOFTWARE = 70
 
+      COMMANDS = {
+        import: ['Import', 'Import local sound file into scube']
+      }.freeze
+
       class << self
         def run arguments, stdout: $stdout, stderr: $stderr
           new(arguments).tap do |o|
@@ -32,12 +36,16 @@ module Scube
 
       def parse_arguments!
         option_parser.parse! @arguments
-        fail ArgumentError, option_parser unless @command = @arguments.shift
+        fail ArgumentError, option_parser unless @arguments.any?
+        @command = @arguments.shift.to_sym
       rescue OptionParser::InvalidOption => e
         fail ArgumentError, option_parser
       end
 
       def run
+        fail ArgumentError, option_parser unless COMMANDS.keys.include? @command
+        command = Commands.const_get COMMANDS[@command].first
+        command.new(@arguments).run
       end
 
 
@@ -52,15 +60,20 @@ module Scube
           opts.on '-v', '--verbose', 'enable verbose mode' do
             @env.verbose = true
           end
-
-          opts.separator ''
-          opts.on_tail '-h', '--help', 'print this message' do
+          opts.on '-h', '--help', 'print this message' do
             @stdout.print opts
             exit
           end
-          opts.on_tail '-V', '--version', 'print version' do
+          opts.on '-V', '--version', 'print version' do
             @stdout.puts VERSION
             exit
+          end
+
+          opts.separator ''
+          opts.separator 'commands:'
+          COMMANDS.each do |name, meta|
+            desc = meta.last
+            opts.separator '  %-8s %s' % [name, desc]
           end
         end
       end
