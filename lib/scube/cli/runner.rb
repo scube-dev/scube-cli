@@ -46,6 +46,8 @@ module Scube
         fail ArgumentError, option_parser unless COMMANDS.keys.include? @command
         command = Commands.const_get COMMANDS[@command].first
         command.new(@arguments).run
+      rescue Commands::ArgumentError
+        fail ArgumentError, option_parser
       end
 
 
