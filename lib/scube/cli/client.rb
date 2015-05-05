@@ -18,9 +18,16 @@ module Scube
       end
 
       def conn
-        @conn ||= Faraday.new(@base_uri, headers: HEADERS).tap do |c|
+        @conn ||= Faraday.new(@base_uri) do |c|
+          c.request :multipart
+          c.request :url_encoded
           c.authorization :Token,
             token: File.read(File.expand_path(TOKEN_PATH)).chomp
+          c.adapter Faraday.default_adapter
+        end.tap do |c|
+          HEADERS.each do |k, v|
+            c.headers[k] = v
+          end
         end
       end
 
