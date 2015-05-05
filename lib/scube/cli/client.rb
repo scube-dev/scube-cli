@@ -36,6 +36,13 @@ module Scube
       def ping
         conn.get 'ping'
       end
+
+      def sound? digest
+        response = conn.head "sounds/#{digest}"
+        fail 'FIXME: auth error' if response.status == 401
+        fail 'FIXME: API error' if response.status == 500
+        response.success?
+      end
     end
   end
 end
