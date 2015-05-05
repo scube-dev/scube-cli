@@ -17,15 +17,16 @@ module Scube
         end
 
         def run
-          ARGF.each { |l| import_file Pathname.new(l.chomp) }
-
-          puts "#{stats_report_text} in X seconds"
+          time = Benchmark.realtime do
+            ARGF.each { |l| import_file Pathname.new(l.chomp) }
+          end
+          puts "#{stats_report_text} in #{time.to_i} seconds"
         end
 
         def import_file path
           digest = Digest::SHA256.file(path)
           increment_stat :ignored, path and return if @client.sound? digest
-          @client.sound_post path and increment_stat :created, path
+          puts @client.sound_post(path).body and increment_stat :created, path
         end
 
 
