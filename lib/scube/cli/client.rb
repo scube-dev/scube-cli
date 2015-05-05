@@ -43,6 +43,14 @@ module Scube
         fail 'FIXME: API error' if response.status == 500
         response.success?
       end
+
+      def sound_post path
+        response = conn.post 'sounds', {
+          sound: {
+            file: Faraday::UploadIO.new(path.to_s, 'image/jpeg')
+          }
+        }
+      end
     end
   end
 end
