@@ -10,8 +10,7 @@ module Scube
       TOKEN_PATH = '~/.scube/credentials'
 
       HEADERS = {
-        'Accept'        => 'application/json',
-        'Content-Type'  => 'application/json'
+        'Accept' => 'application/json',
       }.freeze
 
       def initialize base_uri = SCUBE_BASE_URI
@@ -22,8 +21,10 @@ module Scube
         @conn ||= Faraday.new(@base_uri) do |c|
           c.request :multipart
           c.request :url_encoded
+          c.request :json
           c.authorization :Token,
             token: File.read(File.expand_path(TOKEN_PATH)).chomp
+          c.response :json
           c.adapter Faraday.default_adapter
         end.tap do |c|
           HEADERS.each do |k, v|
