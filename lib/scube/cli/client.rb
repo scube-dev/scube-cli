@@ -47,7 +47,7 @@ module Scube
       def sound_post path
         response = conn.post 'sounds', {
           sound: {
-            file: Faraday::UploadIO.new(path.to_s, 'image/jpeg')
+            file: Faraday::UploadIO.new(path.to_s, 'audio/mpeg')
           }
         }
       end
