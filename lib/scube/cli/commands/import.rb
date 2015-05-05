@@ -17,6 +17,7 @@ module Scube
         end
 
         def run
+          Signal.trap('INFO') { puts stats_report_text }
           time = Benchmark.realtime do
             ARGF.each { |l| import_file Pathname.new(l.chomp) }
           end
@@ -26,7 +27,8 @@ module Scube
         def import_file path
           digest = Digest::SHA256.file(path)
           increment_stat :ignored, path and return if @client.sound? digest
-          puts @client.sound_post(path).body and increment_stat :created, path
+          puts @client.sound_post(path).body
+          increment_stat :created, path
         end
 
 
