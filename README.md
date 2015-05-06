@@ -8,5 +8,5 @@ scube-cli
 
 
 
-[badge-version-img]:  https://img.shields.io/gem/v/uh-wm.svg?style=flat-square
-[badge-version-uri]:  https://rubygems.org/gems/uh-wm
+[badge-version-img]:  https://img.shields.io/gem/v/scube-cli.svg?style=flat-square
+[badge-version-uri]:  https://rubygems.org/gems/scube-cli
