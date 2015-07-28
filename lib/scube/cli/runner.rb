@@ -9,8 +9,9 @@ module Scube
       EX_SOFTWARE = 70
 
       COMMANDS = {
-        import: ['Import',  'Import local sound file into scube'],
-        ping:   ['Ping',    'Ping scube server']
+        import:       ['Import',    'Import local sound file into scube'],
+        ping:         ['Ping',      'Ping scube server'],
+        "ping:auth":  ['PingAuth',  'Ping scube server (authenticated)']
       }.freeze
 
       class << self

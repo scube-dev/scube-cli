@@ -37,6 +37,10 @@ module Scube
         conn.get 'ping'
       end
 
+      def ping_auth
+        conn.get 'ping/auth'
+      end
+
       def sound? digest
         response = conn.head "sounds/#{digest}"
         fail 'FIXME: auth error' if response.status == 401

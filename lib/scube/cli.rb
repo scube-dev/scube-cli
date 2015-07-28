@@ -5,6 +5,7 @@ require 'scube/cli/client'
 require 'scube/cli/commands'
 require 'scube/cli/commands/import'
 require 'scube/cli/commands/ping'
+require 'scube/cli/commands/ping_auth'
 require 'scube/cli/runner'
 require 'scube/cli/version'
 
