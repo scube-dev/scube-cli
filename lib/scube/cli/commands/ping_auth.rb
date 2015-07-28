@@ -5,6 +5,7 @@ module Scube
     module Commands
       class PingAuth < Ping
       private
+
         def ping_method
           :ping_auth
         end

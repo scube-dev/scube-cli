@@ -13,7 +13,7 @@ module Scube
       TOKEN_PATH = '~/.scube/credentials'.freeze
 
       HEADERS = {
-        'Accept' => 'application/json',
+        'Accept' => 'application/json'
       }.freeze
 
       def initialize base_uri = SCUBE_BASE_URI
@@ -49,10 +49,8 @@ module Scube
       end
 
       def sound_post path
-        post 'sounds', {
-          sound: {
-            file: Faraday::UploadIO.new(path.to_s, 'audio/mpeg')
-          }
+        post 'sounds', sound: {
+          file: Faraday::UploadIO.new(path.to_s, 'audio/mpeg')
         }
       end
 

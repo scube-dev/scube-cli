@@ -2,7 +2,7 @@ module Scube
   module CLI
     module Commands
       class Import
-        def initialize args
+        def initialize _args
           @client = Client.new
           @stats  = {
             created: {
@@ -31,8 +31,7 @@ module Scube
           increment_stat :created, path
         end
 
-
-        private
+      private
 
         def increment_stat stat, path
           @stats[stat][:count]  += 1

@@ -16,7 +16,7 @@ module Scube
 
       class << self
         def run arguments, stdout: $stdout, stderr: $stderr
-          new(arguments).tap do |o|
+          new(arguments, stdout: stdout).tap do |o|
             o.parse_arguments!
             o.run
           end
@@ -25,7 +25,7 @@ module Scube
           exit EX_USAGE
         rescue RuntimeError => e
           stderr.puts "#{e.class.name}: #{e.message}"
-          stderr.puts e.backtrace.map { |e| '  %s' % e }
+          stderr.puts e.backtrace.map { |l| '  %s' % l }
           exit EX_SOFTWARE
         end
       end
@@ -40,8 +40,8 @@ module Scube
         option_parser.parse! @arguments
         fail ArgumentError, option_parser unless @arguments.any?
         @command = @arguments.shift.to_sym
-      rescue OptionParser::InvalidOption => e
-        fail ArgumentError, option_parser
+      rescue OptionParser::InvalidOption
+        raise ArgumentError, option_parser
       end
 
       def run
@@ -49,11 +49,10 @@ module Scube
         command = Commands.const_get COMMANDS[@command].first
         command.new(@arguments).run
       rescue Commands::ArgumentError
-        fail ArgumentError, option_parser
+        raise ArgumentError, option_parser
       end
 
-
-      private
+    private
 
       def option_parser
         OptionParser.new do |opts|
