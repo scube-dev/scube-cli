@@ -4,6 +4,9 @@ require 'faraday_middleware'
 module Scube
   module CLI
     class Client
+      AuthenticationError = Class.new(RuntimeError)
+      APIInternalError    = Class.new(RuntimeError)
+
       # FIXME: extract as CLI option with default value
       SCUBE_BASE_URI = ENV['SCUBE_BASE_URI'].dup.freeze
       # FIXME: extract as CLI option with default value
@@ -58,8 +61,10 @@ module Scube
       %i[head get post put delete].each do |meth|
         define_method meth do |path, **params|
           conn.send(meth, path, params).tap do |response|
-            fail 'FIXME: auth error' if response.status == 401
-            fail 'FIXME: API error' if response.status == 500
+            case response.status
+              when 401 then fail AuthenticationError
+              when 500 then fail APIInternalError
+            end
           end
         end
       end
