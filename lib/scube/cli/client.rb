@@ -7,7 +7,7 @@ module Scube
       # FIXME: extract as CLI option with default value
       SCUBE_BASE_URI = ENV['SCUBE_BASE_URI'].dup.freeze
       # FIXME: extract as CLI option with default value
-      TOKEN_PATH = '~/.scube/credentials'
+      TOKEN_PATH = '~/.scube/credentials'.freeze
 
       HEADERS = {
         'Accept' => 'application/json',
