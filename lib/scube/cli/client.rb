@@ -34,26 +34,34 @@ module Scube
       end
 
       def ping
-        conn.get 'ping'
+        get 'ping'
       end
 
       def ping_auth
-        conn.get 'ping/auth'
+        get 'ping/auth'
       end
 
       def sound? digest
-        response = conn.head "sounds/#{digest}"
-        fail 'FIXME: auth error' if response.status == 401
-        fail 'FIXME: API error' if response.status == 500
-        response.success?
+        head("sounds/#{digest}").success?
       end
 
       def sound_post path
-        response = conn.post 'sounds', {
+        post 'sounds', {
           sound: {
             file: Faraday::UploadIO.new(path.to_s, 'audio/mpeg')
           }
         }
+      end
+
+    private
+
+      %i[head get post put delete].each do |meth|
+        define_method meth do |path, **params|
+          conn.send(meth, path, params).tap do |response|
+            fail 'FIXME: auth error' if response.status == 401
+            fail 'FIXME: API error' if response.status == 500
+          end
+        end
       end
     end
   end
