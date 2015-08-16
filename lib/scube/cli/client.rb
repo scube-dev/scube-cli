@@ -16,6 +16,8 @@ module Scube
         'Accept' => 'application/json'
       }.freeze
 
+      attr_reader :base_uri
+
       def initialize base_uri = SCUBE_BASE_URI
         @base_uri = base_uri
       end
@@ -42,6 +44,10 @@ module Scube
 
       def ping_auth
         get 'ping/auth'
+      end
+
+      def session_post **params
+        post 'sessions', session: params
       end
 
       def sound? digest

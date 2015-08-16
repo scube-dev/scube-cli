@@ -11,7 +11,8 @@ module Scube
       COMMANDS = {
         import:       ['Import',    'Import local sound file into scube'],
         ping:         ['Ping',      'Ping scube server'],
-        "ping:auth":  ['PingAuth',  'Ping scube server (authenticated)']
+        'ping:auth':  ['PingAuth',  'Ping scube server (authenticated)'],
+        signin:       ['Signin',    'Signin and get authentication token']
       }.freeze
 
       class << self
