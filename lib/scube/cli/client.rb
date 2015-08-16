@@ -7,8 +7,7 @@ module Scube
       AuthenticationError = Class.new(RuntimeError)
       APIInternalError    = Class.new(RuntimeError)
 
-      # FIXME: extract as CLI option with default value
-      SCUBE_BASE_URI = ENV['SCUBE_BASE_URI'].dup.freeze
+      SCUBE_BASE_URI = 'http://localhost:3000/api'.freeze
       # FIXME: extract as CLI option with default value
       TOKEN_PATH = '~/.scube/credentials'.freeze
 
@@ -18,7 +17,7 @@ module Scube
 
       attr_reader :base_uri
 
-      def initialize base_uri = SCUBE_BASE_URI
+      def initialize base_uri = ENV['SCUBE_BASE_URI'] || SCUBE_BASE_URI
         @base_uri = base_uri
       end
 
