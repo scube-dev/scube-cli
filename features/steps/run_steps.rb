@@ -11,8 +11,8 @@ When /^I( successfully)? run scube with options? (-.+)$/ do |check, options|
   scube_run options: options, check: !!check
 end
 
-When /^I run scube with command `([^']*)'$/ do |command|
-  scube_run command: command
+When /^I( successfully)? run scube with command `([^']*)'$/ do |check, command|
+  scube_run command: command, check: !!check
 end
 
 
