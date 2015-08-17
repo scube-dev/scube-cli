@@ -16,8 +16,8 @@ module Scube
       }.freeze
 
       class << self
-        def run arguments, stdout: $stdout, stderr: $stderr
-          new(arguments, stdout: stdout).tap do |o|
+        def run arguments, stdin: $stdin, stdout: $stdout, stderr: $stderr
+          new(arguments, stdin: stdin, stdout: stdout).tap do |o|
             o.parse_arguments!
             o.run
           end
@@ -31,8 +31,9 @@ module Scube
         end
       end
 
-      def initialize args, stdout: $stdout
+      def initialize args, stdin: $stdin, stdout: $stdout
         @arguments  = args
+        @stdin      = stdin
         @stdout     = stdout
         @env        = OpenStruct.new
       end
@@ -48,7 +49,7 @@ module Scube
       def run
         fail ArgumentError, option_parser unless COMMANDS.keys.include? @command
         command = Commands.const_get COMMANDS[@command].first
-        command.new(@arguments).run
+        command.new(@arguments, stdin: @stdin, stdout: @stdout).run
       rescue Commands::ArgumentError
         raise ArgumentError, option_parser
       end
