@@ -24,7 +24,7 @@ module Scube
         rescue ArgumentError => e
           stderr.puts e
           exit EX_USAGE
-        rescue RuntimeError => e
+        rescue StandardError => e
           stderr.puts "#{e.class.name}: #{e.message}"
           stderr.puts e.backtrace.map { |l| '  %s' % l }
           exit EX_SOFTWARE
