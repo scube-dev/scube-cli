@@ -26,6 +26,10 @@ end
 
 World(Aruba::Api)
 
+Before do
+  set_environment_variable 'HOME', expand_path('.')
+end
+
 Before('@exec') do
   aruba.config.command_launcher = :spawn
 end
