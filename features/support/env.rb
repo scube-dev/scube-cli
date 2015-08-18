@@ -26,10 +26,8 @@ end
 
 World(Aruba::Api)
 
-Around do |_, block|
-  with_environment 'HOME' => expand_path('.') do
-    block.call
-  end
+Before do
+  set_environment_variable 'HOME', expand_path('.')
 end
 
 Before('@exec') do
