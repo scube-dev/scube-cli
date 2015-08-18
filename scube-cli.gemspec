@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'faraday', '~> 0.9'
   s.add_dependency 'faraday_middleware', '~> 0.9'
 
-  s.add_development_dependency 'aruba',     '~> 0.8'
+  s.add_development_dependency 'aruba',     '~> 0.9'
   s.add_development_dependency 'cucumber',  '~> 2.0'
   s.add_development_dependency 'rake',      '~> 10.4'
   s.add_development_dependency 'vcr',       '~> 2.9'

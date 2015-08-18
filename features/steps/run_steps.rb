@@ -3,7 +3,7 @@ def scube_run options: nil, command: nil, check: false
   cmd << options if options
   cmd << command if command
   run_simple cmd.join(' '), false
-  assert_exit_status 0 if check
+  expect(last_command_started).to have_exit_status 0 if check
 end
 
 
@@ -17,5 +17,5 @@ end
 
 
 Then /^the exit status must be (\d+)$/ do |exit_status|
-  assert_exit_status exit_status.to_i
+  expect(last_command_started).to have_exit_status exit_status.to_i
 end

@@ -10,7 +10,7 @@ end
 
 
 Then /^the output must contain exactly the usage$/ do
-  expect(all_output).to eq <<-eoh
+  expect(last_command_started.output).to eq <<-eoh
 Usage: scube [options] command
 
 options:
@@ -27,5 +27,5 @@ commands:
 end
 
 Then /^the output must match \/([^\/]+)\/([a-z]*)$/ do |pattern, options|
-  expect(all_output).to match build_regexp(pattern, options)
+  expect(last_command_started.output).to match build_regexp(pattern, options)
 end
