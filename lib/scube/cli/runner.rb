@@ -19,7 +19,7 @@ module Scube
         def run arguments, stdin: $stdin, stdout: $stdout, stderr: $stderr
           new(arguments, stdin: stdin, stdout: stdout).tap do |o|
             o.parse_arguments!
-            o.run
+            o.run!
           end
         rescue ArgumentError => e
           stderr.puts e
@@ -35,7 +35,7 @@ module Scube
         @arguments  = args
         @stdin      = stdin
         @stdout     = stdout
-        @env        = OpenStruct.new
+        @env        = Env.new(stdin, stdout)
       end
 
       def parse_arguments!
@@ -46,10 +46,10 @@ module Scube
         raise ArgumentError, option_parser
       end
 
-      def run
+      def run!
         fail ArgumentError, option_parser unless COMMANDS.keys.include? @command
         command = Commands.const_get COMMANDS[@command].first
-        command.new(@arguments, stdin: @stdin, stdout: @stdout).run
+        command.new(@env, @arguments).run
       rescue Commands::ArgumentError
         raise ArgumentError, option_parser
       end
