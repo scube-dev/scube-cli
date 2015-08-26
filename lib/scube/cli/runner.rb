@@ -18,6 +18,7 @@ module Scube
       class << self
         def run arguments, stdin: $stdin, stdout: $stdout, stderr: $stderr
           new(arguments, stdin: stdin, stdout: stdout).tap do |o|
+            o.load_run_control!
             o.parse_arguments!
             o.run!
           end
@@ -36,6 +37,12 @@ module Scube
         @stdin      = stdin
         @stdout     = stdout
         @env        = Env.new(stdin, stdout)
+      end
+
+      def load_run_control!
+        # FIXME: maybe we can use a #merge method and make input/output some
+        # key/value pairs as a hash
+        @env.merge! RunControl.load
       end
 
       def parse_arguments!

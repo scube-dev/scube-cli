@@ -9,6 +9,7 @@ require 'scube/cli/commands/ping'
 require 'scube/cli/commands/ping_auth'
 require 'scube/cli/commands/signin'
 require 'scube/cli/env'
+require 'scube/cli/run_control'
 require 'scube/cli/runner'
 require 'scube/cli/version'
 

@@ -7,18 +7,15 @@ module Scube
       AuthenticationError = Class.new(RuntimeError)
       APIInternalError    = Class.new(RuntimeError)
 
-      SCUBE_BASE_URI = 'http://localhost:3000/api'.freeze
-      # FIXME: extract as CLI option with default value
-      TOKEN_PATH = '~/.scube/credentials'.freeze
-
       HEADERS = {
         'Accept' => 'application/json'
       }.freeze
 
       attr_reader :base_uri
 
-      def initialize base_uri = ENV['SCUBE_BASE_URI'] || SCUBE_BASE_URI
-        @base_uri = base_uri
+      def initialize base_uri, credentials
+        @base_uri     = base_uri
+        @credentials  = credentials
       end
 
       def conn
@@ -27,7 +24,7 @@ module Scube
           c.request :url_encoded
           c.request :json
           c.authorization :Token,
-            token: File.read(File.expand_path(TOKEN_PATH)).chomp
+            token: @credentials
           c.response :json
           c.adapter Faraday.default_adapter
         end.tap do |c|

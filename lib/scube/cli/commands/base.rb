@@ -9,7 +9,7 @@ module Scube
 
         def initialize env, args
           @env    = env
-          @client = Client.new
+          @client = Client.new(env.base_uri, env.credentials)
           setup_arguments args
         end
 
