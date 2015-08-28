@@ -1,10 +1,9 @@
 module Scube
   module CLI
     module Commands
-      class Import
-        def initialize _args
-          @client = Client.new
-          @stats  = {
+      class Import < Base
+        def setup *_args
+          @stats = {
             created: {
               count:  0,
               size:   0
@@ -19,6 +18,7 @@ module Scube
         def run
           Signal.trap('INFO') { puts stats_report_text }
           time = Benchmark.realtime do
+            # FIXME: refactor this, we should not access ARGF directly
             ARGF.each { |l| import_file Pathname.new(l.chomp) }
           end
           puts "#{stats_report_text} in #{time.to_i} seconds"
@@ -26,8 +26,8 @@ module Scube
 
         def import_file path
           digest = Digest::SHA256.file(path)
-          increment_stat :ignored, path and return if @client.sound? digest
-          puts @client.sound_post(path).body
+          increment_stat :ignored, path and return if client.sound? digest
+          puts client.sound_post(path).body
           increment_stat :created, path
         end
 
