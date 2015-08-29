@@ -17,9 +17,10 @@ module Scube
 
         attr_reader :client
 
-        # FIXME: implement this correctly (arity errors)
         def setup_arguments args
           send :setup, *args if respond_to? :setup
+        rescue ::ArgumentError
+          fail ArgumentError
         end
 
         def ask prompt
