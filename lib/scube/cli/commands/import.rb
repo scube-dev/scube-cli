@@ -27,7 +27,7 @@ module Scube
         def import_file path
           digest = Digest::SHA256.file(path)
           increment_stat :ignored, path and return if client.sound? digest
-          puts client.sound_post(path).body
+          puts client.track_post(path.basename, path).body
           increment_stat :created, path
         end
 

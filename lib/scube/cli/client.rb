@@ -60,6 +60,13 @@ module Scube
         get('tracks').body['tracks']
       end
 
+      def track_post name, sound_path
+        post 'tracks', track: {
+          name: name,
+          file: Faraday::UploadIO.new(sound_path.to_s, 'audio/mpeg')
+        }
+      end
+
     private
 
       %i[head get post put delete].each do |meth|
