@@ -23,6 +23,7 @@ commands:
   list     List resources
   ping     Ping scube server
   ping:auth Ping scube server (authenticated)
+  play     Play given track
   signin   Signin and get authentication token
   eoh
 end
