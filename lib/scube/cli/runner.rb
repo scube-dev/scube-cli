@@ -10,6 +10,7 @@ module Scube
 
       COMMANDS = {
         import:       ['Import',    'Import local sound file into scube'],
+        list:         ['List',      'List resources'],
         ping:         ['Ping',      'Ping scube server'],
         'ping:auth':  ['PingAuth',  'Ping scube server (authenticated)'],
         signin:       ['Signin',    'Signin and get authentication token']
