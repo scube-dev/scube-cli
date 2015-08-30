@@ -70,8 +70,8 @@ module Scube
           opts.separator ''
           opts.separator 'options:'
 
-          opts.on '-v', '--verbose', 'enable verbose mode' do
-            @env.verbose = true
+          opts.on '-d', '--debug', 'enable debug mode' do
+            @env.debug = true
           end
           opts.on '-h', '--help', 'print this message' do
             @stdout.print opts

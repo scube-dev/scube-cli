@@ -17,12 +17,16 @@ rescue RSpec::Expectations::ExpectationNotMetError => e
 end
 
 
-When /^I( successfully)? run scube with options? (-.+)$/ do |check, options|
+When /^I( successfully)? run scube with options? (--?[\w-]+)$/ do |check, options|
   scube_run options: options, check: !!check
 end
 
-When /^I( successfully)? run scube with command `([^']*)'$/ do |check, command|
+When /^I( successfully)? run scube with command `([^']*)'/ do |check, command|
   scube_run command: command, check: !!check
+end
+
+When /^I( successfully)? run scube with options? (--?[\w-]+) and command `([^']*)'/ do |check, options, command|
+  scube_run options: options, command: command, check: !!check
 end
 
 

@@ -9,13 +9,17 @@ module Scube
 
         def initialize env, args
           @env    = env
-          @client = Client.new(env.base_uri, env.credentials)
+          @client = build_client env
           setup_arguments args
         end
 
       private
 
         attr_reader :client
+
+        def build_client env
+          Client.new(env.base_uri, env.credentials, logger: env.logger)
+        end
 
         def setup_arguments args
           send :setup, *args if respond_to? :setup

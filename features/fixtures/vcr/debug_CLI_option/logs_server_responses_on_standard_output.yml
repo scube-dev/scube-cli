@@ -1,0 +1,48 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3000/api/ping
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Token token=""
+      User-Agent:
+      - Faraday v0.9.1
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      date:
+      - Sun, 30 Aug 2015 16:13:28 GMT
+      status:
+      - 200 OK
+      connection:
+      - close
+      access-control-allow-origin:
+      - ''
+      access-control-allow-credentials:
+      - 'true'
+      access-control-expose-headers:
+      - Content-Length
+      content-type:
+      - application/json; charset=utf-8
+      etag:
+      - W/"92934b4414474f58bc30e47aa50f7580"
+      cache-control:
+      - max-age=0, private, must-revalidate
+      x-request-id:
+      - 397d0487-2291-4356-85c2-ba5d4cd06928
+      x-runtime:
+      - '0.003530'
+    body:
+      encoding: UTF-8
+      string: '{"pong":true}'
+    http_version: 
+  recorded_at: Sun, 30 Aug 2015 16:13:28 GMT
+recorded_with: VCR 2.9.3

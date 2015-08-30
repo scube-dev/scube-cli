@@ -13,9 +13,10 @@ module Scube
 
       attr_reader :base_uri
 
-      def initialize base_uri, credentials
+      def initialize base_uri, credentials, logger: nil
         @base_uri     = base_uri
         @credentials  = credentials
+        @logger       = logger
       end
 
       def conn
@@ -25,6 +26,7 @@ module Scube
           c.request :json
           c.authorization :Token,
             token: @credentials
+          c.response :logger, @logger if @logger
           c.response :json
           c.adapter Faraday.default_adapter
         end.tap do |c|

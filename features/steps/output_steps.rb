@@ -14,7 +14,7 @@ Then /^the output must contain exactly the usage$/ do
 Usage: scube [options] command
 
 options:
-    -v, --verbose                    enable verbose mode
+    -d, --debug                      enable debug mode
     -h, --help                       print this message
     -V, --version                    print version
 
