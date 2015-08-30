@@ -56,6 +56,10 @@ module Scube
         }
       end
 
+      def tracks
+        get('tracks').body['tracks']
+      end
+
     private
 
       %i[head get post put delete].each do |meth|
