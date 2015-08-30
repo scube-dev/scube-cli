@@ -27,7 +27,7 @@ module Scube
           c.authorization :Token,
             token: @credentials
           c.response :logger, @logger if @logger
-          c.response :json
+          c.response :json, content_type: /\bjson\z/
           c.adapter Faraday.default_adapter
         end.tap do |c|
           HEADERS.each do |k, v|
