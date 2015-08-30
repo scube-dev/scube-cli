@@ -20,6 +20,7 @@ options:
 
 commands:
   import   Import local sound file into scube
+  list     List resources
   ping     Ping scube server
   ping:auth Ping scube server (authenticated)
   signin   Signin and get authentication token
