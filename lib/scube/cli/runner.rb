@@ -13,6 +13,7 @@ module Scube
         list:         ['List',      'List resources'],
         ping:         ['Ping',      'Ping scube server'],
         'ping:auth':  ['PingAuth',  'Ping scube server (authenticated)'],
+        play:         ['Play',      'Play given track'],
         signin:       ['Signin',    'Signin and get authentication token']
       }.freeze
 

@@ -1,5 +1,6 @@
 require 'faraday'
 require 'faraday_middleware'
+require 'tempfile'
 
 module Scube
   module CLI
@@ -50,6 +51,15 @@ module Scube
 
       def sound? digest
         head("sounds/#{digest}").success?
+      end
+
+      def sound_file id
+        sound_content = get("sounds/#{id}").body
+        Tempfile.create(File.basename($0 + ?_)) do |f|
+          f.write sound_content
+          f.flush
+          yield f
+        end
       end
 
       def sound_post path
