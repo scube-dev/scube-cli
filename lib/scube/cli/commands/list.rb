@@ -2,20 +2,19 @@ module Scube
   module CLI
     module Commands
       class List < Base
-        def setup type, *query
-          @type   = type
-          @query  = query
+        def setup type
+          @type = type
         end
 
         def run
-          client.tracks.each do |track|
-            p track
+          client.send(type.to_sym).each do |record|
+            p record
           end
         end
 
       private
 
-        attr_reader :type, :query
+        attr_reader :type
       end
     end
   end

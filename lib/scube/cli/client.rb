@@ -49,6 +49,10 @@ module Scube
         post 'sessions', session: params
       end
 
+      def playlists
+        get('playlists').body['playlists']
+      end
+
       def sound? digest
         head("sounds/#{digest}").success?
       end
