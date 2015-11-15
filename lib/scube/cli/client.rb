@@ -49,6 +49,10 @@ module Scube
         post 'sessions', session: params
       end
 
+      def authors
+        get('authors').body['authors']
+      end
+
       def playlists
         get('playlists').body['playlists']
       end
