@@ -1,3 +1,5 @@
+require 'id3tag'
+
 module Scube
   module CLI
     module Commands
@@ -27,11 +29,29 @@ module Scube
         def import_file path
           digest = Digest::SHA256.file(path)
           increment_stat :ignored, path and return if client.sound? digest
-          puts client.track_post(path.basename, path).body
+          puts client.track_post(path, track_attributes(path)).body
           increment_stat :created, path
         end
 
       private
+
+        def track_attributes path
+          attributes = { name: path.basename.to_s }
+
+          ID3Tag.read(File.open(path, 'rb')) do |tag|
+            attributes.merge!(
+              name:     tag.title,
+              authors:  [{ name: tag.artist }],
+              release:  {
+                name:         tag.album,
+                year:         tag.year,
+                track_number: tag.track_nr
+              }
+            )
+          end
+
+          attributes
+        end
 
         def increment_stat stat, path
           @stats[stat][:count]  += 1

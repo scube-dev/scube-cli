@@ -76,11 +76,10 @@ module Scube
         get('tracks').body['tracks']
       end
 
-      def track_post name, sound_path
+      def track_post sound_path, **attributes
         post 'tracks', track: {
-          name: name,
           file: Faraday::UploadIO.new(sound_path.to_s, 'audio/mpeg')
-        }
+        }.merge(attributes)
       end
 
     private
