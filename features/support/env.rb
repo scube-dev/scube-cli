@@ -27,14 +27,14 @@ end
 World(Aruba::Api)
 
 Before do
-  set_environment_variable 'HOME', expand_path('.')
+  set_environment_variable 'HOME', expand_path(?.)
 end
 
-Before('@exec') do
+Before '@exec' do
   aruba.config.command_launcher = :spawn
 end
 
-Before('~@exec') do
+Before '~@exec' do
   aruba.config.command_launcher = :in_process
   aruba.config.main_class       = ArubaProgramWrapper
 end
@@ -47,5 +47,5 @@ VCR.configure do |c|
 end
 
 VCR.cucumber_tags do |t|
-   t.tag '@vcr', use_scenario_name: true
+  t.tag '@vcr', use_scenario_name: true
 end
