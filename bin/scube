@@ -2,4 +2,4 @@
 
 require 'scube/cli'
 
-Scube::CLI::Runner.run(ARGV)
+Scube::CLI::Runner.run ARGV

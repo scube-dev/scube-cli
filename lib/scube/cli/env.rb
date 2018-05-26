@@ -3,7 +3,7 @@ require 'logger'
 module Scube
   module CLI
     class Env
-      DEFAULTS  = {
+      DEFAULTS = {
         debug:        false,
         base_uri:     'http://localhost:3000/api'.freeze,
         credentials:  nil
